@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Casamento de Estela e Fábio</title>
+  <meta name="description" content="Informações principais do casamento de Estela e Fábio e links úteis (RSVP, como chegar e lista de presentes)." />
+  <meta name="theme-color" content="#938368" />
+  <style>
+    /* --------- Design tokens (CSS Variables) --------- */
+    :root{
+      /* cores */
+      --bg:#938368;  /* fundo pedido */
+      --text:#000000;/* texto preto */
+      --surface: rgba(255,255,255,0.85); /* cartão translúcido (glass) */
+      --surface-2: rgba(255,255,255,0.65);
+      --btn-bg:#000000; /* botões: fundo preto */
+      --btn-text:#ffffff; /* botões: letra branca */
+      --btn-bg-hover:#111111;
+      --shadow: 0 10px 30px rgba(0,0,0,.18);
+
+      /* tipografia fluida */
+      --fs-hero: clamp(26px, 6vw, 40px);
+      --fs-sub: clamp(16px, 3.7vw, 20px);
+      --fs-body: clamp(15px, 3.4vw, 18px);
+      --fs-small: clamp(13px, 3vw, 14px);
+
+      /* espaçamentos escala 8px */
+      --space-1: 8px;  --space-2: 12px;  --space-3: 16px;  --space-4: 20px;
+      --space-5: 24px; --space-6: 28px;  --space-7: 32px;  --space-8: 40px;
+
+      --radius-outer: 22px; /* cantos arredondados grandes */
+      --radius-inner: 16px; /* elementos internos */
+      --maxw: 720px;
+    }
+
+    /* --------- Reset/Práticas modernas --------- */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body{
+      margin:0;
+      /* Gradiente moderno, mantendo a base #938368 */
+      background:
+        radial-gradient(1200px 700px at 10% -10%, rgba(255,255,255,0.22), rgba(255,255,255,0) 60%),
+        radial-gradient(900px 600px at 100% 0%, rgba(255,255,255,0.14), rgba(255,255,255,0) 55%),
+        linear-gradient(180deg, #a79a84 0%, #938368 45%, #7a6d57 100%);
+      color: var(--text);
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica Neue, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      line-height:1.5;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+    }
+
+    /* Respeita áreas seguras (notch) e usa layout centrado */
+    .wrap{
+      min-height: 100dvh;
+      display: grid;
+      place-items: center;
+      padding: max(var(--space-5), env(safe-area-inset-top)) max(var(--space-5), env(safe-area-inset-left)) max(var(--space-5), env(safe-area-inset-bottom)) max(var(--space-5), env(safe-area-inset-right));
+    }
+
+    /* Cartão com glass + sombra suave, contraste elevado e espaçamento generoso */
+    .card{
+      width: 100%;
+      max-width: var(--maxw);
+      background: var(--surface);
+      backdrop-filter: blur(6px) saturate(1.05);
+      -webkit-backdrop-filter: blur(6px) saturate(1.05);
+      border-radius: var(--radius-outer);
+      padding: clamp(20px, 3.2vw, 36px);
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(255,255,255,0.4);
+    }
+
+    header { text-align: center; margin-bottom: var(--space-4); }
+    h1{
+      margin: 0 0 var(--space-1) 0;
+      font-size: var(--fs-hero);
+      letter-spacing: .2px;
+      font-weight: 800;
+    }
+    .subtitle{ font-size: var(--fs-sub); margin: 0 0 var(--space-2) 0; font-weight: 700; }
+    .when { font-size: var(--fs-small); opacity:.9; margin:0; }
+
+    /* bloco de local/etiquetas com micro-card */
+    .venue{
+      background: var(--surface-2);
+      border-radius: var(--radius-inner);
+      padding: var(--space-3);
+      border: 1px solid rgba(0,0,0,.04);
+    }
+    .info{ display: grid; gap: 8px; margin: var(--space-2) 0 var(--space-4) 0; font-size: var(--fs-body); }
+    .label{ font-weight: 700; }
+
+    /* Links como CTAs com acessibilidade e micro-interação */
+    .links{ display:grid; gap: var(--space-3); margin-top: var(--space-2); }
+    /* animação de entrada escalonada */
+    .ready .links .btn{ opacity:1; transform: none; }
+    .links .btn:nth-child(1){ transition-delay: .08s; }
+    .links .btn:nth-child(2){ transition-delay: .18s; }
+    .links .btn:nth-child(3){ transition-delay: .28s; }
+    .links .btn:nth-child(4){ transition-delay: .38s; }
+    .btn{
+      --h: 56px;
+      display: grid; grid-auto-flow: column; grid-auto-columns: max-content 1fr max-content; align-items: center; gap: 12px;
+      justify-content: center;
+      text-decoration: none;
+      background: var(--btn-bg);
+      color: var(--btn-text);
+      padding: 14px 16px;
+      border-radius: var(--radius-inner);
+      font-size: var(--fs-body);
+      font-weight: 800;
+      text-align: center;
+      min-height: var(--h);
+      outline: none;
+      border: 1px solid rgba(255,255,255,.08);
+      box-shadow: 0 6px 10px rgba(0,0,0,.18);
+      transform: translateY(8px) scale(.98);
+      opacity: 0;
+      will-change: opacity, transform;
+      transition: opacity .6s ease, transform .6s ease, box-shadow .2s ease, background-color .2s ease;
+    }
+    @media (hover:hover) {
+      .btn:hover{ background: var(--btn-bg-hover); transform: translateY(6px) scale(.99); box-shadow: 0 10px 20px rgba(0,0,0,.22); }
+    }
+    }
+    }
+    .btn:active{ transform: translateY(0); }
+    .btn:focus-visible{ outline: 3px solid #fff; outline-offset: 2px; }
+    .btn svg{ inline-size: 22px; block-size: 22px; flex: 0 0 auto; }
+
+    footer{ margin-top: var(--space-4); text-align:center; font-size: var(--fs-small); opacity:.85; }
+
+    /* Preferências do usuário: reduzir movimento e aumentar contraste */
+    @media (prefers-reduced-motion: reduce){
+      * { transition: none !important; animation: none !important; }
+      .links .btn{ opacity:1 !important; transform:none !important; }
+    }
+    }
+    @media (prefers-contrast: more){
+      body{ background: var(--bg); }
+      .card{ background: #fff; }
+      .venue{ background: #fff; }
+      .btn{ box-shadow: none; }
+    }
+      .venue{ background: #fff; }
+      .btn{ box-shadow: none; }
+    }
+      .venue{ background: #fff; }
+      .btn{ box-shadow: none; }
+    }
+
+    /* Ajustes em telas maiores */
+    @media (min-width: 900px){ .wrap{ padding: 64px; } }
+  </style>
+</head>
+<body>
+  <main class="wrap" role="main">
+    <section class="card" aria-label="Informações do Casamento">
+      <header>
+        <h1>Casamento de Estela&nbsp;e&nbsp;Fábio</h1>
+        <p class="subtitle">Cerimônia</p>
+        <p class="when">
+          <time datetime="2025-12-06T19:30-03:00">06 de dezembro de 2025 às 19:30</time>
+        </p>
+      </header>
+
+      <div class="venue" aria-label="Local da cerimônia e festa">
+        <div class="info">
+          <div><span class="label">Local:</span> Minas Tênis Clube</div>
+          <div>Setor de Clubes Norte (SCEN) Trecho 03 Conjunto 06</div>
+          <div>Salão Social</div>
+          <div><span class="label">Traje:</span> Esporte Fino</div>
+        </div>
+      </div>
+
+      <div class="links" aria-label="Links úteis">
+        <a class="btn" href="https://sites.icasei.com.br/fabio_estela/pages/36008856" target="_blank" rel="noopener" aria-label="Confirmação de Presença">
+          <span class="prefix" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M9 16.2 4.8 12 3.4 13.4 9 19 21 7l-1.4-1.4z"/></svg>
+          </span>
+          <span>Confirmação de Presença</span>
+          <span class="suffix" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M13.172 12 7.05 5.879l1.414-1.415L16 12l-7.536 7.536-1.414-1.415z"/></svg>
+          </span>
+        </a>
+        <a class="btn" href="https://sites.icasei.com.br/fabio_estela/places/15" target="_blank" rel="noopener" aria-label="Como chegar à Festa">
+          <span class="prefix" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/></svg>
+          </span>
+          <span>Como chegar à Festa</span>
+          <span class="suffix" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M13.172 12 7.05 5.879l1.414-1.415L16 12l-7.536 7.536-1.414-1.415z"/></svg>
+          </span>
+        </a>
+        <a class="btn" href="https://sites.icasei.com.br/fabio_estela/pages/36018766" target="_blank" rel="noopener" aria-label="Lista de Presentes">
+          <span class="prefix" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M20 12v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8h16zm1-6h-3.18A3 3 0 0 0 12 4a3 3 0 0 0-5.82 2H3a1 1 0 0 0-1 1v3h20V7a1 1 0 0 0-1-1zM9 6a1 1 0 0 1 2 0v1H9V6zm4 0a1 1 0 0 1 2 0v1h-2V6z"/></svg>
+          </span>
+          <span>Lista de Presentes</span>
+          <span class="suffix" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M13.172 12 7.05 5.879l1.414-1.415L16 12l-7.536 7.536-1.414-1.415z"/></svg>
+          </span>
+        </a>
+      </div>
+
+      <footer>
+        <p>Com carinho, Estela e Fábio</p>
+      </footer>
+    </section>
+  </main>
+  <script>
+    // Ativa animação de entrada quando o DOM estiver pronto
+    document.addEventListener('DOMContentLoaded', function(){
+      document.body.classList.add('ready');
+    });
+  </script>
+</body>
+</html>
